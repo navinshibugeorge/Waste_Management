@@ -23,27 +23,33 @@ class MockAuthService {
   }
 
   private loadUsersFromStorage() {
-    try {
-      const storedUsers = localStorage.getItem("mockAuth_users")
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const storedUsers = localStorage.getItem("mockAuth_users");
+
       if (storedUsers) {
-        const usersData = JSON.parse(storedUsers)
-        this.users = new Map(Object.entries(usersData))
-        console.log("📂 Loaded", this.users.size, "users from storage")
+        const usersData = JSON.parse(storedUsers);
+        this.users = new Map(Object.entries(usersData));
       }
-    } catch (error) {
-      console.warn("Failed to load users from storage:", error)
     }
+  } catch (error) {
+    console.warn("Failed to load users from storage:", error);
   }
+}
+
 
   private saveUsersToStorage() {
-    try {
-      const usersData = Object.fromEntries(this.users.entries())
-      localStorage.setItem("mockAuth_users", JSON.stringify(usersData))
-      console.log("💾 Saved", this.users.size, "users to storage")
-    } catch (error) {
-      console.warn("Failed to save users to storage:", error)
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const usersData = Object.fromEntries(this.users.entries());
+      localStorage.setItem("mockAuth_users", JSON.stringify(usersData));
+      console.log("💾 Saved", this.users.size, "users to storage");
     }
+  } catch (error) {
+    console.warn("Failed to save users to storage:", error);
   }
+}
+
 
   private initializeTestUsers() {
     const testUsers = [
