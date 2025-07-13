@@ -59,7 +59,7 @@ export function VendorSelectionAlgorithm({ wasteType, quantity, location, onVend
     },
     {
       id: "V003",
-      name: "Waste",
+      name: "Waste wa",
       contact: "+91-9876543212",
       pricePerKg: 50,
       distance: 3.1,
